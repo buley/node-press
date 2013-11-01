@@ -1,0 +1,3 @@
+[submodule "lib/vendor/node-as"]
+	path = lib/vendor/node-as
+	url = git@github.com:editor/node-as.git
