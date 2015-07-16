@@ -1,0 +1,22 @@
+{
+  "name": "node-press",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcnaughton/node-press.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcnaughton/node-press/issues"
+  },
+  "homepage": "https://github.com/mcnaughton/node-press",
+  "dependencies": {
+    "node-as": "^1.0.0"
+  }
+}
