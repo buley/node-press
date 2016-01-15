@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mcnaughton/node-press",
   "dependencies": {
-    "node-as": "^1.0.0"
+    "node-as": "^1.0.0",
+    "oauth": "^0.9.14"
   }
 }
