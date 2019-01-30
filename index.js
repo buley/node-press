@@ -6629,38 +6629,67 @@ Public.prototype.service = function (service) {
 
 Public.prototype.secrets = function (path) {
 
+    var fs = require('fs');
+
     if ('undefined' === typeof path || null === path) {
         throw new Error('Keypath cannot be empty');
     }
 
-    var auth_keys = require(path);
-
-    for (var key in auth_keys) {
-        global[key] = auth_keys[key];
-    }
+    var auth_keys = ('string' === typeof path) ? fs.readFileSync(path, 'utf8') : path,
+        twitter = auth_keys.twitter,
+        facebook = auth_keys.facebook,
+        google = auth_keys.google,
+        yahoo = auth_keys.yahoo,
+        soundcloud = auth_keys.soundcloud,
+        wordpress = auth_keys.wordpress,
+        youtube = auth_keys.youtube,
+        blogger = auth_keys.blogger,
+        windows = auth_keys.windows,
+        foursquare = auth_keys.foursquare,
+        github = auth_keys.github,
+        linkedin = auth_keys.linkedin,
+        evernote = auth_keys.evernote,
+        instagram = auth_keys.instagram,
+        vimeo = auth_keys.vimeo,
+        tumblr = auth_keys.tumblr,
+        reddit = auth_keys.reddit;
 
     // Twitter (oAuth 1.0)
-    Private.service.twitter = new OAuth("https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", twitterId, twitterSecret, "1.0", twitterCallbackAddress || null, "HMAC-SHA1");
+    if (!!twitter) {
+        Private.service.twitter = new OAuth("https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", twitter.id, twitter.secret, "1.0", twitterCallbackAddress || null, "HMAC-SHA1");
+    }
 
     // Facebook (oAuth 2)
-    Private.service.facebook = new OAuth2(facebookId, facebookSecret, "https://graph.facebook.com");
+    if (!!facebook) {
+        Private.service.facebook = new OAuth2(facebook.id, facebook.secret, "https://graph.facebook.com");
+    }
 
     // Google (oAuth 2)
-    Private.service.google = new OAuth2(googleId, googleSecret, "", "https://accounts.google.com/o/oauth2/auth", "https://accounts.google.com/o/oauth2/token");
+    if (!!google) {
+        Private.service.google = new OAuth2(google.id, google.secret, "", "https://accounts.google.com/o/oauth2/auth", "https://accounts.google.com/o/oauth2/token");
+    }
 
     // Foursquare (oAuth 2)
-    Private.service.foursquare = new OAuth2(foursquareId, foursquareSecret, "https://foursquare.com", "/oauth2/authenticate", "/oauth2/access_token", "HMAC-SHA1");
-    Private.service.foursquare.setAccessTokenName("oauth_token");
+    if (!!foursquare) {
+        Private.service.foursquare = new OAuth2(foursquare.id, foursquare.secret, "https://foursquare.com", "/oauth2/authenticate", "/oauth2/access_token", "HMAC-SHA1");
+        Private.service.foursquare.setAccessTokenName("oauth_token");
+    }
 
     // Tumblr (oauth 1.0)
-    Private.service.tumblr = new OAuth("http://www.tumblr.com/oauth/request_token", "http://www.tumblr.com/oauth/access_token", tumblrId, tumblrSecret, "1.0", tumblrCallbackAddress || null, "HMAC-SHA1");
+    if (!!tumblr) {
+        Private.service.tumblr = new OAuth("http://www.tumblr.com/oauth/request_token", "http://www.tumblr.com/oauth/access_token", tumblr.id, tumblr.secret, "1.0", tumblr.callback || null, "HMAC-SHA1");
+    }
 
     // Github (oAuth 2)
-    Private.service.github = new OAuth2(githubId, githubSecret, "https://github.com", "/login/oauth/authorize", "/login/oauth/access_token", "HMAC-SHA1");
-    Private.service.github.setAccessTokenName("access_token");
+    if (!!github) {
+        Private.service.github = new OAuth2(github.id, github.secret, "https://github.com", "/login/oauth/authorize", "/login/oauth/access_token", "HMAC-SHA1");
+        Private.service.github.setAccessTokenName("access_token");
+    }
 
     // Linkedin (oauth 1.0)
-    Private.service.linkedin = new OAuth("https://api.linkedin.com/uas/oauth/requestToken", "https://api.linkedin.com/uas/oauth/accessToken", linkedinId, linkedinSecret, "1.0", linkedinCallbackAddress || null, "HMAC-SHA1");
+    if (!!linkedin) {
+        Private.service.linkedin = new OAuth("https://api.linkedin.com/uas/oauth/requestToken", "https://api.linkedin.com/uas/oauth/accessToken", linkedin.id, linkedin.secret, "1.0", linkedin.callback || null, "HMAC-SHA1");
+    }
 
 };
 
